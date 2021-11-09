@@ -1,12 +1,13 @@
 package math32
 
 const (
-	uvnan    = 0x7FE00000
-	uvinf    = 0x7F800000
-	uvneginf = 0xFF800000
-	mask     = 0xFF
-	shift    = 32 - 8 - 1
-	bias     = 127
+	uvnan     = 0x7FE00000
+	uvinf     = 0x7F800000
+	uvneginf  = 0xFF800000
+	mask      = 0xFF
+	maskglibc = 0x7FF
+	shift     = 32 - 8 - 1
+	bias      = 127
 )
 
 // Inf returns positive infinity if sign >= 0, negative infinity if sign < 0.
@@ -52,4 +53,9 @@ func normalize(x float32) (y float32, exp int) {
 		return x * (1 << shift), -shift
 	}
 	return x, 0
+}
+
+// Top 12 bits of the float representation with the sign bit cleared.
+func absToP12s(x float32) uint32 {
+	return (Float32bits(x) >> 20) & maskglibc
 }
