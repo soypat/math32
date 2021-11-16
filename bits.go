@@ -5,6 +5,7 @@ const (
 	uvinf    = 0x7F800000
 	uvneginf = 0xFF800000
 	mask     = 0xFF
+	notmask  = 0x000FFFFF
 	shift    = 32 - 8 - 1
 	bias     = 127
 	signMask = 1 << 31
